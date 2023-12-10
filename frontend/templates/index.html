@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VPR Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        #imageInput, #uploadButton {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #preview {
+            max-width: 100%;
+            height: auto;
+            display: none;
+            margin: 0 auto;
+        }
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                width: 100%;
+            }
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        input[type="file"] {
+            border: 1px solid #ddd;
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="file" id="imageInput" accept="image/*">
+        <button id="uploadButton">Upload Image</button>
+        <img id="preview" />
+    </div>
+
+    <script>
+        document.getElementById('uploadButton').onclick = function() {
+            var imageInput = document.getElementById('imageInput');
+            if (imageInput.files && imageInput.files[0]) {
+                var img = document.getElementById('preview');
+                img.src = URL.createObjectURL(imageInput.files[0]);
+                img.style.display = 'block';
+
+                var formData = new FormData();
+                formData.append('image', imageInput.files[0]);
+
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                })
+                .catch(function(error) {
+                    console.log('Error:', error);
+                });
+            } else {
+                alert("Please select an image!");
+            }
+        };
+    </script>
+</body>
+</html>
