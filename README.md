@@ -13,7 +13,7 @@ Docker Hub link: [Here](https://hub.docker.com/repository/docker/trinitrotofu/vp
 Example:
 
 ```shell
-docker run -p 80:5000 -e KAFKA_URL='localhost:9092' --name vpr-frontend trinitrotofu/vpr-frontend:latest
+docker run -p 80:5000 -e KAFKA_URL="localhost:9092" --name vpr-frontend trinitrotofu/vpr-frontend:latest
 ```
 
 **Backend:**
@@ -23,5 +23,5 @@ Docker Hub link: [Here](https://hub.docker.com/repository/docker/trinitrotofu/vp
 Example:
 
 ```shell
-docker run -e KAFKA_URL='localhost:9092' --name vpr-backend trinitrotofu/vpr-backend:latest
+docker run -e KAFKA_URL="localhost:9092" --name vpr-backend trinitrotofu/vpr-backend:latest
 ```
